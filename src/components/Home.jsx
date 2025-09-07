@@ -141,9 +141,9 @@ const Home = () => {
             <Tooltip id="copy-json-data" />
             <Tooltip id="toggle-theme" />
             <ToastContainer />
-            <h1 className='text-3xl font-cursive tracking-widest underline font-bold text-center my-10'>API HUB</h1>
-            <div className='container mx-auto mt-10 mb-5 flex justify-center flex-col items-center p-5 rounded-lg'>
-                <form className="w-6/12 mx-auto shadow-lg" onSubmit={(e) => getAPIURLData(e)}>
+            <h1 className='text-3xl font-mono tracking-widest font-bold text-center my-10'>API HUB</h1>
+            <div className='max-w-6xl mx-auto mt-10 mb-5 flex justify-center flex-col items-center p-5 rounded-lg'>
+                <form className="w-full lg:w-6/12 mx-auto shadow-lg" onSubmit={(e) => getAPIURLData(e)}>
                     <label htmlFor="api-endpoint" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -158,7 +158,7 @@ const Home = () => {
                         </div>
                     </div>
                 </form>
-                <div className={`${localStorage.getItem("darkMode") === "true" ? "bg-black text-white" : "bg-white text-black"} w-6/12 shadow-lg mt-10 rounded-lg`}>
+                <div className={`bg-white text-black w-full lg:w-6/12 shadow-lg mt-10 rounded-lg`}>
                     <div className='flex justify-between items-center border-b pt-2 pb-2 pl-5 pr-5 shadow-sm'>
                         <h1 className='text-md font-sans font-bold'>STATUS: {apiURLJSON.status}</h1>
                         {/* <h1 className='text-md font-sans font-bold'>{apiURLJSON.status}</h1> */}
@@ -167,22 +167,27 @@ const Home = () => {
                             <button data-tooltip-id="copy-json-data" data-tooltip-content={apiDataCopy} onClick={() => copyAPIJSON()} type="button" className={`${!hasRenderableJson(apiURLJSON.apiData) ? "pointer-events-none opacity-50" : ""} w-10 h-10 text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-md text-lg text-center flex justify-center items-center`}><FaCopy /></button>
                         </div>
                     </div>
-                    {apiURLJSONLoad ? (
-                        <div className='flex justify-center items-center p-5'>
-                            <ColorRing width={80} height={80} />
-                        </div>
-                    ) : hasRenderableJson(apiURLJSON.apiData) ? (
-                        <div className='overflow-auto max-h-96 rounded'>
-                            <JSONPretty
-                                style={{ padding: '1rem', backgroundColor: '#272822', borderRadius: '6px' }}
-                                data={apiURLJSON.apiData}
-                            />
-                        </div>
-                    ) : (
-                        <h2 className="text-lg text-center font-bold dark:text-white p-5">
-                            PLEASE ENTER API ENDPOINT
-                        </h2>
-                    )}
+                    {
+                        apiURLJSONLoad ? (
+                            <div className='flex justify-center items-center p-5'>
+                                <ColorRing width={80} height={80} />
+                            </div>
+                        ) : hasRenderableJson(apiURLJSON.apiData) ? (
+                            <div className='overflow-auto max-h-96 rounded'>
+                                <JSONPretty
+                                    style={{ padding: '1rem', backgroundColor: '#272822', borderRadius: '6px' }}
+                                    data={apiURLJSON.apiData}
+                                />
+                            </div>
+                        ) : (
+                            <h2
+                                className="text-base sm:text-lg md:text-xl text-center font-bold dark:text-white p-5 sm:p-5"
+                            >
+                                PLEASE ENTER API ENDPOINT
+                            </h2>
+
+                        )
+                    }
 
                 </div>
             </div>
